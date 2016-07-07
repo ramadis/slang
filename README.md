@@ -50,9 +50,12 @@ getCode(primeExp = true): returns the code for the given Program. Set primeExp t
 ```
 **Instruction Class**: Represents an instruction, with its encoding representation.
 ```
-fromString: returns an Instruction from a valid S language instruction string.
-fromCode: returns an Instruction from a valid instruction code.
+static fromString: returns an Instruction from a valid S language instruction string.
+static fromCode: returns an Instruction from a valid instruction code.
 getCode: returns the code for an Instruction
+getString: returns a valid S language instruction string from a given Instruction.
+equals: returns true or false, depending on the equality between Instructions.
+toString: returns a String representation from the instruction using the Pairing Function syntax.
 ```
 ## Notes
 Every encoding step can be proved, showing that exists a bijectivity between natural numbers and the `S` language programs. Further proving, that there are functions which can not be computed.
