@@ -35,6 +35,9 @@ class Instruction {
   }
 
   static fromString (str) {
+    if (!str) return null;
+    str = str.toLowerCase();
+
     const instruction = {};
     let [label, operation] = str.split(' ');
     operation = operation ? operation : label;
@@ -70,11 +73,11 @@ class InstructionParser {
     if (!label) return 0;
 
     const letter = label.match(/[a-e]/)[0];
-    const idx = Number(label.match(/[0-9]+/)[0]);
+    const idx = Number(label.match(/[0-9]+/)[0]) - 1;
     const pos = letter.charCodeAt(0) - 'a'.charCodeAt(0) + 1;
 
-    if (pos <= 0 || !idx) throw new Error(ERROR.INVALID_LABEL);
-    return ( pos + 5 ) * idx;
+    if (pos <= 0 || Number.isNaN(idx)) throw new Error(ERROR.INVALID_LABEL);
+    return pos + ( 5 * idx );
   }
 
   static getOperationValue (operation, label) {
