@@ -2,6 +2,15 @@
 
 Slang is a javascript library used to get the natural representation of a program from theoretical `L` (or `S`) language, from [Martin Davis' Computability, Complexity and Languages](https://www.amazon.com/Computability-Complexity-Languages-Second-Fundamentals/dp/0122063821).
 
+## Installation
+Just run `npm install` to install every dependency. We depend mostly on `gulp`, `babel`, and `mocha`.
+
+## Run
+To compile and use it, just run `npm start` from the terminal.
+
+## Test
+To run the tests, just run `npm test` from the terminal.
+
 ## Example
 A valid example of the `S` language is as follows
 ```

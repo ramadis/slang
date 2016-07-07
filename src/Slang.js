@@ -10,6 +10,11 @@ const ERROR = {
 // See docs for further understanding.
 class Instruction {
   constructor (a, b, c) {
+    a = Number(a); b = Number(b); c = Number(c);
+
+    const notNumber = Number.isNaN(a) || Number.isNaN(b) || Number.isNaN(c);
+    if (notNumber || a < 0 || b < 0 || c < 0) { a = 0; b = 0; c = 0; }
+    
     this.a = a;
     this.b = b;
     this.c = c;
@@ -17,7 +22,7 @@ class Instruction {
 
   static fromCode (num) {
     num = Number(num);
-    if (!num) throw new Error(ERROR.INVALID_NUM);
+    if (num !== 0 && !num) throw new Error(ERROR.INVALID_NUM);
 
     const fstCall = Pairing.inverse(num);
     const sndCall = Pairing.inverse(fstCall.snd);
@@ -41,6 +46,17 @@ class Instruction {
     instruction.c = InstructionParser.getVariableValue(operation);
 
     return new Instruction(instruction.a, instruction.b, instruction.c);
+  }
+
+  toString () {
+    return `<${this.a}, <${this.b}, ${this.c}>>`;
+  }
+
+  equals (obj) {
+    if (obj && obj instanceof Instruction) {
+      return this.a === obj.a && this.b === obj.b && this.c === obj.c;
+    }
+    return false;
   }
 
   getCode () {
@@ -76,7 +92,7 @@ class InstructionParser {
     idx = idx ? Number(idx[0]) : null;
     if (operation.includes('z') && idx) return 2 * idx;
     if (operation.includes('x') && idx) return 2 * idx - 1;
-    debugger;
+
     throw new Error(ERROR.INVALID_VAR);
   }
 };
@@ -85,7 +101,10 @@ class InstructionParser {
 class Pairing {
   static _findFactor (num, fact) {
     let aux = 0;
-    while (num % fact === 0 && num != 0) aux++;
+    while (num % fact === 0 && num != 0) {
+      aux++;
+      num /= fact;
+    }
     return aux;
   }
 
@@ -96,8 +115,8 @@ class Pairing {
   static inverse (num) {
     const pair = { fst: 0, snd: 0 };
 
-    pair.fst = num / (this._findFactor((num + 1), 2) * 2);
-    pair.snd = (pair.fst - 1) / 2;
+    pair.fst = this._findFactor((num + 1), 2);
+    pair.snd = ((num + 1) / (Math.pow(2, pair.fst)) - 1) / 2;
 
     return pair;
   }
@@ -145,3 +164,5 @@ class Program {
     return code  += "- 1";
   }
 };
+
+module.exports = { Program, Instruction, Pairing };
