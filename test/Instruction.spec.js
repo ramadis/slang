@@ -101,14 +101,14 @@ describe('Instruction: toString()', () => {
 
 describe('Instruction: fromString()', () => {
   const expects = [
-    { output: [1, 1, 1], input: ['[A1] X1++'] },
-    { output: [0, 0, 0], input: ['Y'] },
-    { output: [1, 3, 2], input: ['[A1] Z1?A1'] },
-    { output: [1, 2, 3], input: ['[A1] X2--'] },
-    { output: [5, 2, 3], input: ['[E1] X2--'] },
-    { output: [6, 2, 3], input: ['[A2] X2--'] },
-    { output: [6, 2, 4], input: ['[A2] Z2--'] },
-    { output: [6, 0, 4], input: ['[A2] Z2'] },
+    { output: [1, 1, 1], input: ['[A1] X1++;'] },
+    { output: [0, 0, 0], input: ['Y;'] },
+    { output: [1, 3, 2], input: ['[A1] Z1?A1;'] },
+    { output: [1, 2, 3], input: ['[A1] X2--;'] },
+    { output: [5, 2, 3], input: ['[E1] X2--;'] },
+    { output: [6, 2, 3], input: ['[A2] X2--;'] },
+    { output: [6, 2, 4], input: ['[A2] Z2--;'] },
+    { output: [6, 0, 4], input: ['[A2] Z2;'] },
   ];
 
   const validExpects = expects.map((expect) => { 
@@ -118,6 +118,29 @@ describe('Instruction: fromString()', () => {
   validExpects.forEach((validExpect) => {
     it(` ${validExpect.input} => ${validExpect.output}`, () => {
       expect(Instruction.fromString(...validExpect.input)).to.deep.equal(validExpect.output);
+    })
+  })
+});
+
+describe('Instruction: getString()', () => {
+  const expects = [
+    { input: [1, 1, 1], output: '[A1] X1++;' },
+    { input: [0, 0, 0], output: 'Y;' },
+    { input: [1, 3, 2], output: '[A1] Z1?A1;' },
+    { input: [1, 2, 3], output: '[A1] X2--;' },
+    { input: [5, 2, 3], output: '[E1] X2--;' },
+    { input: [6, 2, 3], output: '[A2] X2--;' },
+    { input: [6, 2, 4], output: '[A2] Z2--;' },
+    { input: [6, 0, 4], output: '[A2] Z2;' },
+  ];
+
+  const validExpects = expects.map((expect) => { 
+    return { output: expect.output, input: new Instruction(...expect.input) };
+  });
+
+  validExpects.forEach((validExpect) => {
+    it(` ${validExpect.input} => ${validExpect.output}`, () => {
+      expect(validExpect.input.getString()).to.equal(validExpect.output);
     })
   })
 });

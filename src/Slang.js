@@ -51,6 +51,25 @@ class Instruction {
     return new Instruction(instruction.a, instruction.b, instruction.c);
   }
 
+  getString () {
+    const defaultVar = 'Y';
+    const defaultLabel = '';
+    const vars = ['X', 'Z'];
+    const operations = [';', '++;', '--;', '?'];
+    const labels = ['A', 'B', 'C', 'D', 'E'];
+
+    const getItem = (num, arr) =>  `${ arr[(num - 1) % arr.length] }${ Math.ceil(num / arr.length) }`;
+
+    const variable = this.c ? getItem(this.c, vars) : defaultVar;
+    const label = this.a ? `[${ getItem(this.a, labels) }]` : defaultLabel;
+    
+    // ? operations needs more thinking.
+    const simpOp = operations.length - 1;
+    const operation = this.b < simpOp ? operations[this.b] : operations[simpOp] + getItem(this.b - simpOp + 1, labels) + ';';
+
+    return `${ label } ${ variable }${ operation }`.trim();
+  }
+
   toString () {
     return `<${this.a}, <${this.b}, ${this.c}>>`;
   }
