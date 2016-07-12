@@ -1,11 +1,3 @@
-// Object holding error messages
-const ERROR = {
-  INVALID_LABEL: { code: 1, msg: 'THE LABEL PROVIDED FOR AN INSTRUCTION IS MALFORMED' },
-  INVALID_VAR: { code: 2, msg: 'THE VARIABLE PROVIDED FOR AN INSTRUCTION IS MALFORMED' },
-  INVALID_NUM: { code: 3, msg: 'THE NUMBER PROVIDED IS NOT ACTUALLY A NUMBER' }
-};
-
-
 // Represents an instruction, holding its representation in 3 fields.
 // See docs for further understanding.
 class Instruction {
@@ -13,7 +5,7 @@ class Instruction {
     a = Number(a); b = Number(b); c = Number(c);
 
     const notNumber = Number.isNaN(a) || Number.isNaN(b) || Number.isNaN(c);
-    if (notNumber || a < 0 || b < 0 || c < 0) { a = 0; b = 0; c = 0; }
+    if (notNumber || a < 0 || b < 0 || c < 0) throw new Error(ERROR.INVALID_INSTRUCTION.msg);
     
     this.a = a;
     this.b = b;
@@ -22,7 +14,7 @@ class Instruction {
 
   static fromCode (num) {
     num = Number(num);
-    if (num !== 0 && !num) throw new Error(ERROR.INVALID_NUM);
+    if (num !== 0 && !num) throw new Error(ERROR.INVALID_NUM.msg);
 
     const fstCall = Pairing.inverse(num);
     const sndCall = Pairing.inverse(fstCall.snd);
@@ -35,17 +27,16 @@ class Instruction {
   }
 
   static fromString (str) {
-    if (!str) return null;
-    str = str.toLowerCase();
+    if (!str || typeof str != 'string') throw new Error(ERROR.INVALID_STR.msg);
 
-    const instruction = {};
-    let [label, operation] = str.split(' ');
+    let [label, operation] = str.toLowerCase().split(' ');
     operation = operation ? operation : label;
-    if (!operation) return null;
+    if (!operation) throw new Error(ERROR.INVALID_OPER.msg);
     if (operation === label) label = null;
 
+    const instruction = {};
     instruction.a = InstructionParser.getLabelValue(label);
-    instruction.b = InstructionParser.getOperationValue(operation, label);
+    instruction.b = InstructionParser.getOperationValue(operation);
     instruction.c = InstructionParser.getVariableValue(operation);
 
     return new Instruction(instruction.a, instruction.b, instruction.c);
@@ -94,11 +85,13 @@ class InstructionParser {
     const idx = Number(label.match(/[0-9]+/)[0]) - 1;
     const pos = letter.charCodeAt(0) - 'a'.charCodeAt(0) + 1;
 
-    if (pos <= 0 || Number.isNaN(idx)) throw new Error(ERROR.INVALID_LABEL);
+    if (pos <= 0 || Number.isNaN(idx)) throw new Error(ERROR.INVALID_LABEL.msg);
     return pos + ( 5 * idx );
   }
 
-  static getOperationValue (operation, label) {
+  static getOperationValue (operation) {
+    if (!operation) throw new Error(ERROR.INVALID_OPER.msg);
+
     // Invalid operations are considered null operations.
     if (operation.includes('++')) return 1;
     if (operation.includes('--')) return 2;
@@ -246,4 +239,4 @@ class Program {
   }
 };
 
-module.exports = { Program, Instruction, Pairing };
+module.exports = { Program, Instruction, Pairing, ERROR };
