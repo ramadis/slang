@@ -46,6 +46,7 @@ We encode programs using [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B
 **Program Class**: Represents the program by holding an array of Instructions
 ```
 fromString: returns a Program from a valid S language program string.
+getString: returns the Program's string representation.
 getCode(primeExp = true): returns the code for the given Program. Set primeExp to true to get the prime expression (2^...) and set to false to get the Gödel Numbering's square brackets syntax ([...] - 1).
 ```
 **Instruction Class**: Represents an instruction, with its encoding representation.

@@ -158,6 +158,10 @@ class Program {
     return new Program(instructions);
   }
 
+  getString () {
+    return this.instructions.map((instruction) => instruction.getString()).join('\n');
+  }
+
   getCode (primeExp = true) {
 
     let code = '';
