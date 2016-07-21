@@ -45,16 +45,28 @@ We encode programs using [Gödel numbering](https://en.wikipedia.org/wiki/G%C3%B
 ## Documentation
 **Program Class**: Represents the program by holding an array of Instructions
 ```
-fromString: returns a Program from a valid S language program string.
+static fromCode: returns a Program from a given program code.
+static fromString: returns a Program from a valid S language program string.
+
 getString: returns the Program's string representation.
-getCode(primeExp = true): returns the code for the given Program. Set primeExp to true to get the prime expression (2^...) and set to false to get the Gödel Numbering's square brackets syntax ([...] - 1).
+getCode(Program.codeModes): returns the code for the given Program.
+
+equals: returns true or false, depending on the equality between Programs.
+
+static codeModes = {
+  GODEL: represent a Gödel formed program string => [..] - 1,
+  NUMBER: represent the program code as a Number => 31,
+  PRIMES: represent a prime formed program string => 2^.. - 1
+}
 ```
 **Instruction Class**: Represents an instruction, with its encoding representation.
 ```
 static fromString: returns an Instruction from a valid S language instruction string.
 static fromCode: returns an Instruction from a valid instruction code.
+
 getCode: returns the code for an Instruction
 getString: returns a valid S language instruction string from a given Instruction.
+
 equals: returns true or false, depending on the equality between Instructions.
 toString: returns a String representation from the instruction using the Pairing Function syntax.
 ```
