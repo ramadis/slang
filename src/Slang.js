@@ -185,6 +185,11 @@ class Program {
       return acc;
     }
 
+    // Empty instruction patch
+    if (code === 0) {
+      return new Program([Instruction.fromCode(0)]);
+    }
+
     while (code !== 1) {
       if (code % Program.primes[primeIdx] === 0) {
         const prime = Program.primes[primeIdx];
