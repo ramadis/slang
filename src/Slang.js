@@ -123,10 +123,12 @@ class Pairing {
   }
 
   static direct (fst, snd) {
+    if (!Number.isInteger(fst) || !Number.isInteger(snd) || fst < 0 || snd < 0) throw new Error(ERROR.INVALID_NUM.msg);
     return Math.pow(2, fst) * (2 * snd + 1) - 1;
   }
 
   static inverse (num) {
+    if (!Number.isInteger(num) || num < 0) throw new Error(ERROR.INVALID_NUM.msg);
     const pair = { fst: 0, snd: 0 };
 
     pair.fst = this._findFactor((num + 1), 2);

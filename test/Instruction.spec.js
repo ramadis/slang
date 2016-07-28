@@ -23,7 +23,7 @@ describe('Instruction: getCode()', () => {
   ];
 
   invalidExpects.forEach((invalidExpect) => {
-    it(` ${invalidExpect.input} => ERROR`, () => {
+    it(`${invalidExpect.input} => ERROR`, () => {
       expect(() => new Instruction(...invalidExpect.input)).to.throw(Error);
     });
   });
