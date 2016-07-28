@@ -27,7 +27,8 @@ class Instruction {
   }
 
   static fromString (str) {
-    if (!str || typeof str != 'string') throw new Error(ERROR.INVALID_STR.msg);
+    if (!str) return;
+    if (typeof str != 'string') throw new Error(ERROR.INVALID_STR.msg);
 
     let [label, operation] = str.toLowerCase().split(' ');
     operation = operation ? operation : label;
@@ -141,7 +142,7 @@ class Pairing {
 // Represents the program. Its the main class.
 // Holds an array of instructions.
 class Program {
-  constructor (instructions) {
+  constructor (instructions = []) {
     this.instructions = instructions;
   }
 
@@ -172,6 +173,7 @@ class Program {
   }
 
   static fromCode (code = 0) {
+    if (!Number.isInteger(code) || code < 0) throw new Error(ERROR.INVALID_NUM.msg);
     code += 1; let primeIdx = 0; const instructions = [];
 
     const primeValue = (num, prime) => {
@@ -181,7 +183,7 @@ class Program {
     }
 
     // Empty instruction patch
-    if (code === 0) {
+    if (code === 1) {
       return new Program([Instruction.fromCode(0)]);
     }
 
@@ -220,6 +222,7 @@ class Program {
     case Program.codeModes.GODEL:
       code = '[ ';
       this.instructions.forEach((instruction) => code += `${instruction.getCode()} `);
+      code += '] ';
       break;
 
     case Program.codeModes.NUMBER:
@@ -236,8 +239,12 @@ class Program {
 
   equals (program) {
     if (program && program instanceof Program) {
-      return program.getCode(Program.codeModes.NUMBER) === this.getCode(Program.codeModes.NUMBER);
+      return program.getCode() === this.getCode();
     }
+  }
+
+  toString () {
+    return `${ this.getCode(Program.codeModes.NUMBER) }`;
   }
 };
 
