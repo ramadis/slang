@@ -172,32 +172,28 @@ class Program {
             1783, 1787, 1789, 1801, 1811, 1823, 1831, 1847, 1861, 1867, 1871, 1873, 1877, 1879, 1889, 1901, 1907];
   }
 
-  static fromCode (code = 0) {
-    if (!Number.isInteger(code) || code < 0) throw new Error(ERROR.INVALID_NUM.msg);
-    code += 1; let primeIdx = 0; const instructions = [];
+  static fromCode (code) {
+    if (!code || typeof code !== "string") throw new Error(ERROR.INVALID_STR.msg);
+    code = code.toLowerCase().trim();
 
-    const primeValue = (num, prime) => {
-      let acc = 0;
-      while (num && num % prime === 0) { acc++; num /= prime; }
-      return acc;
-    }
+    const codeModes = {
+      PRIMES: /^(\d+\^\d+ )+- ?1$/,
+      GODEL: /^\[ (\d+ )+\] ?- ?1/
+    };
 
-    // Empty instruction patch
-    if (code === 1) {
-      return new Program([Instruction.fromCode(0)]);
-    }
-
-    while (code !== 1) {
-      if (code % Program.primes[primeIdx] === 0) {
-        const prime = Program.primes[primeIdx];
-        const exp = primeValue(code, prime);
-        instructions.push(Instruction.fromCode(exp));
-        code /= Math.pow(prime, exp);
-      }
-      primeIdx++;
-    }
-
-    return new Program(instructions);
+    if (code.match(codeModes.PRIMES)) {
+      code = code.split(' ')
+                 .map((pairs) => pairs.split('^')[1])
+                 .filter((exp) => exp);
+    } else if (code.match(codeModes.GODEL)) {
+      code = code.replace('[', '')
+                 .replace(']', '')
+                 .split(' ')
+                 .filter((exp) => exp);
+      code.pop(); code.pop();
+    } else throw new Error(ERROR.INVALID_CODE.msg);
+    
+    return new Program(code.map((codeInst) => Instruction.fromCode(codeInst)));
   }
 
   static fromString (str) {
