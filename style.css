@@ -1,0 +1,170 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #F5F5F5;
+  color: #494949;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  line-height: 30px;
+}
+
+a {
+  text-decoration: none;
+  color: #ff982e;
+  transition: .2s color;
+}
+
+a:hover {
+  color: #c46c12;
+}
+
+p {
+  margin: 25px 0;
+}
+
+header {
+  background-color: #333;
+  color: #dedede;
+  padding: 30px 0;
+  text-align: center;
+  width: 100%;
+}
+
+header h1 {
+  font-size: 60px;
+  font-family: 'Montserrat';
+}
+
+header h2 {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 400px;
+  font-size: 14px;
+  line-height: 14px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.container {
+  width: 80%;
+  min-width: 960px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+#workload {
+  float: left;
+  width: 50%;
+}
+
+#workload .form-container {
+  background-color: #DFDFDE;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#workload textarea {
+  display: block;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  outline: none;
+  font-family: 'Open Sans';
+  font-size: 20px;
+  border: 1px solid #333;
+  height: 300px;
+}
+
+#workload input {
+  font-family: 'Open Sans';
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin-top: 10px;
+  border-radius: 5px;
+  outline: none;
+  display: inline-block;
+  vertical-align: bottom;
+  font-size: 16px;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  height: 35px;
+}
+
+#workload button {
+  padding: 5px 10px;
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: orange;
+  border: 1px solid #333;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 35px;
+  outline: none;
+  color: #333;
+  transition: .2s background-color;
+}
+
+#workload button:hover {
+  background-color: #f5c771;
+}
+
+#workload .code-mode {
+  margin-left: 140px;
+  height: 23px;
+}
+
+.checkbox-text {
+  font-size: 10px;
+}
+
+
+#instructions {
+  text-align: justify;
+  float: left;
+  width: 50%;
+}
+
+code {
+  padding: 5px;
+  background-color: #DFDFDE;
+  font-size: 12px;
+  margin: 0 2px;
+  border-radius: 5px;
+}
+
+pre {
+  background-color: #DFDFDE;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  height: 60px;
+  line-height: 20px;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+footer {
+  margin-top: 20px;
+  width: 100%;
+  font-size: 14px;
+  background-color: #333;
+  text-align: center;
+}
+
+footer a {
+  color: #F5F5F5;
+}

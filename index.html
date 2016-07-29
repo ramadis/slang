@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Slang | Encoding/Decoding tool for S language</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="slang.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Slang</h1>
+    <h2>Encoding/Decoding tool for Martin David's theoretical S language programs.</h2>
+  </header>
+  <div class="container">
+    <section id="workload">
+      <div class="form-container">
+        <textarea name="program" placeholder='The program goes here...' multiline='true' class='program-box' cols="30" rows="10"></textarea>
+        <input type="text" class='code-box' placeholder="The code goes here...">
+        <button class='process-btn'>Process</button>
+        <input type="checkbox" class='code-mode'> <span class="checkbox-text">Godel numbering mode</span>
+      </div>
+    </section>
+    <section id="instructions">
+      <p>The S language is a theoretical programming language proposed by Martin Davids in his book <a href="https://www.amazon.com/Computability-Complexity-Languages-Second-Fundamentals/dp/0122063821">Computability, Complexity and Languages</a>. It is composed by labels, variables, and 4 basic instructions, which are:</p>
+      <ul>
+        <li><code>V++;</code>: Increments the variable V</li>
+        <li><code>V--;</code>: Decrements the variable V</li>
+        <li><code>V;</code>: Does nothing</li>
+        <li><code>V?L;</code>: If V is different to 0, goes to label L</li>
+      </ul>
+      <p>Labels are written between brackets and can be one of <code>A, B, C, D, E</code> with a subindex.</p>
+      <p>There are 3 types of variables:</p>
+      <ul>
+        <li><code>X</code> with a subindex, are input variables</li>
+        <li><code>Z</code> with a subindex, are auxiliary variables</li>
+        <li><code>Y</code> is the output variable</li>
+      </ul>
+      <p>This language can be used to prove that there are some natural functions which can't be computed. Which is awesome. For more information, check <a href="https://github.com/ramadis/slang">Github's README</a>. On the other side, a full example of a little program written in Slang is as follows:</p>
+      <pre>
+        [A1] X1++;
+                X1--;
+                X1?A1;
+      </pre>
+    </section>
+  </div>
+  <div class="clearfix"></div>
+  <footer>
+    <a href="https://github.com/ramadis/slang">Repo</a> | 
+    <a href="https://github.com/ramadis">Github</a> | 
+    <a href="http://www.oframiro.me/">Personal</a>
+  </footer>
+  <script src="dynamic.js"></script>
+</body>
+</html>
