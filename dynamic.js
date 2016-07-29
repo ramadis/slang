@@ -10,6 +10,12 @@ document.addEventListener('keydown', function(ev) {
   if (ev.target.className === textarea.className && ev.keyCode === 9) {
     textarea.value += '        ';
     ev.preventDefault();
+  } else if (ev.target.className === textarea.className && ev.keyCode === 13
+          && textarea.value.length > 0
+          && textarea.value.charAt(textarea.value.length - 1) !== ';'
+          && textarea.value.charAt(textarea.value.length - 1) !== '\n') {
+    textarea.value += ';\n';
+    ev.preventDefault();
   }
 }, true);
 
