@@ -4,7 +4,14 @@ var input = document.getElementsByClassName('code-box')[0];
 document.addEventListener('input', function(ev) {
   if (ev.target.className === textarea.className) input.value = '';
   else if (ev.target.className === input.className) textarea.value = '';
-})
+});
+
+document.addEventListener('keydown', function(ev) {
+  if (ev.target.className === textarea.className && ev.keyCode === 9) {
+    textarea.value += '        ';
+    ev.preventDefault();
+  }
+}, true);
 
 document.addEventListener('click', function (ev) {
   if (ev.target.className !== 'process-btn' || !(textarea.value || input.value)) return;
