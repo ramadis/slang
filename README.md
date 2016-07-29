@@ -12,15 +12,7 @@ To compile and use it, just run `npm start` from the terminal.
 To run the tests, just run `npm test` from the terminal.
 
 ## Example
-A valid example of the `S` language is as follows
-```
-[A1] X1++;
-     X1--;
-     X1?A1;
-```
-To get the encoding for said program, store it into a variable and pass it to `program = Program.fromString(programString)`. Then, just call `program.getCode()` to obtain what you were looking for: `"2^703 3^22 5^1534 - 1"`.
-
-For further understanding, keep reading the theory.
+Try it online on [https://ramadis.github.io/slang/](https://ramadis.github.io/slang/). For further understanding, keep reading the theory.
 
 ## Instructions
 To encode an instruction we use a (bijective) pairing function (Mapping from N^2 --> N) with the form `<x,y> = 2^x(2y+1)-1`.
